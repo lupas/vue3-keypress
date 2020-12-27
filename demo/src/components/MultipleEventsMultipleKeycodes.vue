@@ -15,11 +15,12 @@
 
 <script>
 import KeyBackground from './KeyBackground.vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
     KeyBackground,
-    Keypress: () => import('vue-keypress'),
+    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
   },
   data() {
     return {
