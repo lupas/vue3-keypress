@@ -15,18 +15,18 @@ The Vue Keypress Component let's you do just that.
 
 Just add the component to the view/component that should start a global keypress handler. When the component gets destroyed, the global event handler also gets removed.
 
-# ‼️ BREAKING CHANGES: v1.x to v2 Migration
+# ‼️ Using Vue 2?
 
-* Event `@pressed` is now called `@success`
-* Prop `event` is now called `keyEvent`
-* The `@pressed` event (or now `@success` event) returns now an object with all the info and more
+This package only supports Vue 3.
+
+For Vue 2 support, visit the [lupas/vue-keypress](https://github.com/lupas/vue-keypress) package repository.
 
 # How to install?
 
 ```bsh
-yarn add vue-keypress
+yarn add vue3-keypress
 // or
-npm i vue-keypress
+npm i vue3-keypress
 ```
 
 # How to use in your project?
@@ -36,7 +36,7 @@ Import the component in any .vue file like so:
 ```js
 ...
 components: {
-  Keypress: () => import('vue-keypress')
+  Keypress: defineAsyncComponent(() => import('vue3-keypress')),
 }
 ...
 ```
@@ -49,9 +49,11 @@ components: {
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+
 export default {
   components: {
-    Keypress: () => import('vue-keypress')
+    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
   },
   methods: {
     someMethod(response) {
@@ -104,9 +106,11 @@ All the other props except key-event become redundant.
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+
 export default {
   components: {
-    Keypress: () => import('vue-keypress')
+    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
   },
   data: () => ({
     multiple: [
@@ -147,9 +151,11 @@ Multiple key events means that multiple event handlers for each evennt need to b
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+
 export default {
   components: {
-    Keypress: () => import('vue-keypress'),
+    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
   },
   data() {
     return {
@@ -203,6 +209,6 @@ Add the following to your `tsconfig.json`:
 
 ```json
 "types": [
-  "vue-keypress"
+  "vue3-keypress"
 ]
 ```
