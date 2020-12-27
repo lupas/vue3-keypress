@@ -52,7 +52,6 @@ export default {
     const addEventListener = (expectedEvent) => {
       let listener = eventHandler(expectedEvent)
       window.addEventListener(expectedEvent.keyEvent, listener)
-      console.log(expectedEvent)
       keyListeners.push({ expectedEvent, listener })
     }
 
