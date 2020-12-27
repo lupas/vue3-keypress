@@ -1,7 +1,7 @@
 <script>
 const supportedModifiers = ['altKey', 'metaKey', 'ctrlKey', 'shiftKey']
 
-import { onMounted, onUnmounted, h } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 export default {
   name: 'Keypress',
