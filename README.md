@@ -1,9 +1,9 @@
-<p align="center"><img align="center" height="300px" src="https://github.com/lupas/vue-keypress/blob/master/misc/keypressLogo.png?raw=true"/></p>
+<p align="center"><img align="center" height="300px" src="https://github.com/lupas/vue3-keypress/blob/master/misc/keypressLogo.png?raw=true"/></p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/vue-keypress"><img src="https://badgen.net/npm/dm/vue-keypress" alt="Downloads"></a>
-  <a href="https://www.npmjs.com/package/vue-keypress"><img src="https://badgen.net/npm/v/vue-keypress" alt="Version"></a>
-  <a href="https://www.npmjs.com/package/vue-keypress"><img src="https://badgen.net/npm/license/vue-keypress" alt="License"></a>
+  <a href="https://www.npmjs.com/package/vue3-keypress"><img src="https://badgen.net/npm/dm/vue3-keypress" alt="Downloads"></a>
+  <a href="https://www.npmjs.com/package/vue3-keypress"><img src="https://badgen.net/npm/v/vue3-keypress" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/vue3-keypress"><img src="https://badgen.net/npm/license/vue3-keypress" alt="License"></a>
  </p>
 </p>
 
