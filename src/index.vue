@@ -125,8 +125,7 @@ export default {
   },
 
   render() {
-    // [Vue warn]: Invalid vnode type when creating vnode
-    return h('div')
+    return null
   },
 }
 </script>
