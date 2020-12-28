@@ -104,6 +104,12 @@ export default {
               (x) => event[x] == (expectedInput.modifiers.indexOf(x) !== -1)
             )
             if (!modifiersPressed) continue
+          } else {
+            // Check if that no modifiers where pressed, otherwise it's not a match
+            const anyModifiersPressed = supportedModifiers.some((x) => {
+              return event[x]
+            })
+            if (anyModifiersPressed) continue
           }
 
           // SUCCESS -> if it got to here, this was the correct key.
