@@ -105,7 +105,7 @@ export default {
             )
             if (!modifiersPressed) continue
           } else {
-            // Check if that no modifiers where pressed, otherwise it's not a match
+            // Check that no modifiers were pressed, otherwise it's not a match
             const anyModifiersPressed = supportedModifiers.some((x) => {
               return event[x]
             })
