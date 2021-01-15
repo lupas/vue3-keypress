@@ -22,7 +22,7 @@
     "src",
     "types"
   ],
-  "main": "lib/vue3_keypress.js",
+  "main": "lib/src/vue3_keypress.js",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",

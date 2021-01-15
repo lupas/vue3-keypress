@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "es2017"],
-    "module": "commonjs",
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "moduleResolution": "node",
+    "target": "esnext",
+    "module": "esnext",
     "noImplicitReturns": true,
     "outDir": "lib",
     "sourceMap": true,
-    "target": "ES6",
     "skipLibCheck": true,
     "declaration": true
   },

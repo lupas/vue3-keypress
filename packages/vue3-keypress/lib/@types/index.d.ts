@@ -3,18 +3,18 @@ interface KeyBind {
     modifiers?: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey'];
     preventDefault: boolean;
     success: {
-        (input: any): SuccessResult;
+        (SuccessResult: any): void;
     };
 }
 interface KeypressOptions {
     keyEvent: 'keydown' | 'keypress' | 'keyup';
     keyBinds: KeyBind[];
-    isActive: any;
+    isActive?: any;
     onAnyKey?: {
-        (event: any): KeypressResult;
+        (SuccessResult: any): void;
     };
     onWrongKey?: {
-        (event: any): KeypressResult;
+        (SuccessResult: any): void;
     };
 }
 interface KeypressResult {
@@ -27,5 +27,3 @@ interface SuccessResult extends KeypressResult {
     modifiers: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey'];
     preventDefault: boolean;
 }
-export declare const useKeypress: ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isListenerActiveRef, }: KeypressOptions) => void;
-export {};

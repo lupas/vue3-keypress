@@ -70,8 +70,7 @@ export default defineComponent({
         }
       ],
       onWrongKey: someWrongKeyCallback,
-      onAnyKey: someAnyKeyCallback,
-      isActive: isActiveRef // TODO: Doesn't seem to work yet + doesnt work if not provided
+      onAnyKey: someAnyKeyCallback
     })
 
     return { pressedKeyCode, isActiveRef, isSuccess }

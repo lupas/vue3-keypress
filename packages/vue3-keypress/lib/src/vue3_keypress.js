@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useKeypress = void 0;
-const vue_1 = require("vue");
-const key_codes_1 = require("./key_codes");
+import { watch, onMounted, onUnmounted } from 'vue';
+import keyCodes from './key_codes';
 const supportedModifiers = ['altKey', 'metaKey', 'ctrlKey', 'shiftKey'];
-const useKeypress = ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isListenerActiveRef, }) => {
+export const useKeypress = ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isListenerActiveRef, }) => {
     let eventListener = null;
     for (let keyBind of keyBinds) {
-        keyBind.keyCode = key_codes_1.default[keyBind.keyCode] || keyBind.keyCode;
+        keyBind.keyCode = keyCodes[keyBind.keyCode] || keyBind.keyCode;
     }
     const addListener = () => {
         if (!eventListener)
@@ -21,8 +18,11 @@ const useKeypress = ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isLis
     };
     const eventHandler = () => {
         return (event) => {
-            const callbackData = (eventData = {}) => (Object.assign({ event,
-                keyEvent }, eventData));
+            const callbackData = (eventData = {}) => ({
+                event,
+                keyEvent,
+                ...eventData,
+            });
             if (typeof onAnyKey == 'function')
                 onAnyKey(callbackData(event));
             for (const { keyCode, modifiers, success, preventDefault = true, } of keyBinds) {
@@ -62,14 +62,13 @@ const useKeypress = ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isLis
     if (isListenerActiveRef) {
         if (isListenerActiveRef.value)
             addListener();
-        vue_1.watch(isListenerActiveRef.value, (active) => {
+        watch(isListenerActiveRef.value, (active) => {
             active ? addListener() : removeListener();
         });
     }
     else {
-        vue_1.onMounted(() => addListener());
+        onMounted(() => addListener());
     }
-    vue_1.onUnmounted(() => removeListener());
+    onUnmounted(() => removeListener());
 };
-exports.useKeypress = useKeypress;
 //# sourceMappingURL=vue3_keypress.js.map
