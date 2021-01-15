@@ -6,7 +6,8 @@
     "outDir": "lib",
     "sourceMap": true,
     "target": "ES6",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declaration": true
   },
   "compileOnSave": false,
   "include": [

@@ -1,7 +1,28 @@
-import { watch, onMounted, onUnmounted } from 'vue'
+import { watch, onMounted, onUnmounted, ref } from 'vue'
 import keyCodes from './key_codes'
 
 const supportedModifiers = ['altKey', 'metaKey', 'ctrlKey', 'shiftKey']
+
+interface KeyBind {
+  keyCode: string
+  modifiers?: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey']
+  preventDefault: boolean
+  success: Function
+}
+
+interface KeypressOptions {
+  keyEvent: 'keydown' | 'keypress' | 'keyup'
+  keyBinds: KeyBind[]
+  isActive: any // TODO
+  onAnyKey?: Function
+  onWrongKey?: Function
+}
+
+export interface KeypressResult {
+  keyCode: string
+  modifiers: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey']
+  preventDefault: boolean
+}
 
 const useKeypress = ({
   keyEvent,
@@ -9,7 +30,7 @@ const useKeypress = ({
   onAnyKey,
   onWrongKey,
   isActive: isListenerActiveRef,
-}) => {
+}: KeypressOptions) => {
   let eventListener = null
 
   for (let keyBind of keyBinds) {
@@ -40,7 +61,6 @@ const useKeypress = ({
         keyCode,
         modifiers,
         success,
-        wrong,
         preventDefault = true,
       } of keyBinds) {
         // Check if the correct keys have been clicked:
@@ -55,7 +75,9 @@ const useKeypress = ({
         if (preventDefault) event.preventDefault()
 
         // SUCCESS -> the correct key was pressed if we got to this point
-        success(callbackData({ keyCode, modifiers, preventDefault }))
+        success(
+          callbackData({ keyCode, modifiers, preventDefault } as KeypressResult)
+        )
 
         return !preventDefault
       }
