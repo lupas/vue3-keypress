@@ -58,31 +58,31 @@ export default {
   methods: {
     someMethod(response) {
       // Do something
-    }
-  }
+    },
+  },
 }
 </script>
 ```
 
 # Props
 
-| Prop    | Type   | Default | Possible Values                   | Description |
-| ------- | ------ | ------- | --------------------------------- | ------------------------------------------------------------------------- |
-| keyEvent   | String | 'keyup' | _keydown_, _keypress_, _keyup_    | |
-| keyCode | Number | null    | [see here](https://keycode.info/) | Key that should trigger the event. If _null_, any key will trigger event. |
-| modifiers   | Array | [] | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_']    | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A.  |
-| preventDefault   | Boolean | false | _true_,_false_    | Prevent the default action of the event |
-| multipleKeys   | Array | [] | See example in 'Multiple Keys'   | Allows you to define multiple keyCode/modifier combinations per keyEvent. |
+| Prop           | Type    | Default | Possible Values                                      | Description                                                                       |
+| -------------- | ------- | ------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
+| keyEvent       | String  | 'keyup' | _keydown_, _keypress_, _keyup_                       |                                                                                   |
+| keyCode        | Number  | null    | [see here](https://keycode.info/)                    | Key that should trigger the event. If _null_, any key will trigger event.         |
+| modifiers      | Array   | []      | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_'] | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A. |
+| preventDefault | Boolean | false   | _true_,_false_                                       | Prevent the default action of the event                                           |
+| multipleKeys   | Array   | []      | See example in 'Multiple Keys'                       | Allows you to define multiple keyCode/modifier combinations per keyEvent.         |
 
 > If you use `multipleKeys`, all the other props (except `keyEvent`) become redundant.
 
 # Events
 
-| Event    | Description                                          |
-| -------- |  ---------------------------------------------------- |
-| @success | Get's emitted when the defined key/modifiers were pressed. |
-| @wrong | Get's emitted when the wrong key(s) or modifier(s) was/were pressed. |
-| @any | Get's emitted with any keypress in any case. |
+| Event    | Description                                                          |
+| -------- | -------------------------------------------------------------------- |
+| @success | Get's emitted when the defined key/modifiers were pressed.           |
+| @wrong   | Get's emitted when the wrong key(s) or modifier(s) was/were pressed. |
+| @any     | Get's emitted with any keypress in any case.                         |
 
 All of them return a payload like so:
 
@@ -114,23 +114,23 @@ export default {
   },
   data: () => ({
     multiple: [
-        {
-          keyCode: 65, // A
-          modifiers: ['shiftKey'],
-          preventDefault: true,
-        },
-        {
-          keyCode: 83, // S
-          modifiers: ['shiftKey'],
-          preventDefault: false,
-        },
-      ],
+      {
+        keyCode: 65, // A
+        modifiers: ['shiftKey'],
+        preventDefault: true,
+      },
+      {
+        keyCode: 83, // S
+        modifiers: ['shiftKey'],
+        preventDefault: false,
+      },
+    ],
   }),
   methods: {
     someMethod(response) {
       // Do something
-    }
-  }
+    },
+  },
 }
 </script>
 ```
@@ -141,13 +141,13 @@ Multiple key events means that multiple event handlers for each evennt need to b
 
 ```vue
 <template>
-    <Keypress
-      v-for="keypressEvent in keypressEvents"
-      :key="keypressEvent.id"
-      :key-event="keypressEvent.keyEvent"
-      :multiple-keys="keypressEvent.multipleKeys"
-      @success="someMethod"
-    />
+  <Keypress
+    v-for="keypressEvent in keypressEvents"
+    :key="keypressEvent.id"
+    :key-event="keypressEvent.keyEvent"
+    :multiple-keys="keypressEvent.multipleKeys"
+    @success="someMethod"
+  />
 </template>
 
 <script>
@@ -196,11 +196,10 @@ export default {
   methods: {
     someMethod(response) {
       // Do something
-    }
+    },
   },
 }
 </script>
-
 ```
 
 # Typescript Support

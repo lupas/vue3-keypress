@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2017"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "target": "ES6",
+    "skipLibCheck": true
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "@types/*.ts",
+    "@types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "lib"]
+}
