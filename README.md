@@ -31,60 +31,107 @@ npm i vue3-keypress
 
 # How to use in your project?
 
-Import the component in any .vue file like so:
-
-```js
-...
-components: {
-  Keypress: defineAsyncComponent(() => import('vue3-keypress')),
-}
-...
-```
-
-# Simple Usage
+# Simple Example
 
 ```vue
-<template>
-  <Keypress key-event="keyup" :key-code="13" @success="someMethod" />
-</template>
-
 <script>
-import { defineAsyncComponent } from 'vue'
+import { useKeypress } from 'vue3_keypress'
+import { ref } from 'vue'
 
+setup() {
+    const keypressListenerActive = ref(true)
+    const someSuccessCallback = ({ keyCode }) => {
+        // doSomething
+    }
+
+    useKeypress({
+        keyEvent: "keydown",
+        keyBinds: [
+          {
+            keyCode: "down",
+            modifiers: ['shiftKey'], // Optional
+            preventDefault: false // Optional: default is "true"
+            success: someSuccessCallback,
+          },
+        ],
+        isActive: keypressListenerActive,
+    })
+}
+</script>
+```
+
+# Full Example
+
+```vue
+<script>
 export default {
   components: {
-    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
+    KeyBackground,
   },
-  methods: {
-    someMethod(response) {
-      // Do something
-    },
+  setup() {
+    const pressedKeyCode = ref(null)
+    const isSuccess = ref(false)
+    const isActiveRef = ref(true)
+
+    const someSuccessCallback = ({ keyCode }) => {
+      isSuccess.value = true
+    }
+
+    const someWrongKeyCallback = ({ event }) => {
+      isSuccess.value = false
+    }
+
+    const someAnyKeyCallback = ({ event }) => {
+      pressedKeyCode.value = event.keyCode
+    }
+
+    useKeypress({
+      keyEvent: 'keydown',
+      keyBinds: [
+        {
+          keyCode: 'left',
+          modifiers: ['shiftKey'],
+          success: someSuccessCallback,
+          preventDefault: true, // the default is true
+        },
+        {
+          keyCode: 'right',
+          modifiers: ['shiftKey'],
+          success: someSuccessCallback,
+          preventDefault: true, // the default is true
+        },
+      ],
+      onWrongKey: someWrongKeyCallback,
+      onAnyKey: someAnyKeyCallback,
+      isActive: isActiveRef,
+    })
+
+    return {}
   },
 }
 </script>
 ```
 
-# Props
+# Config
 
-| Prop           | Type    | Default | Possible Values                                      | Description                                                                       |
-| -------------- | ------- | ------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
-| keyEvent       | String  | 'keyup' | _keydown_, _keypress_, _keyup_                       |                                                                                   |
-| keyCode        | Number  | null    | [see here](https://keycode.info/)                    | Key that should trigger the event. If _null_, any key will trigger event.         |
-| modifiers      | Array   | []      | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_'] | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A. |
-| preventDefault | Boolean | false   | _true_,_false_                                       | Prevent the default action of the event                                           |
-| multipleKeys   | Array   | []      | See example in 'Multiple Keys'                       | Allows you to define multiple keyCode/modifier combinations per keyEvent.         |
+| Variable   | Type         | Default | Possible Values                | Description                                                                       |
+| ---------- | ------------ | ------- | ------------------------------ | --------------------------------------------------------------------------------- |
+| keyEvent   | String       | 'keyup' | _keydown_, _keypress_, _keyup_ |                                                                                   |
+| keyBinds   | KeyBind[]    | []      | see below                      | Object containing infos about which keys are expected to be pressed.              |
+| isActive   | Ref(Boolean) | false   | true / false                   | Setups up a listener that activates/deactivates the keypress listener.            |
+| onWrongKey | Function     | null    |                                | Callback that is triggered every time a key is pressed that is not in "keyBinds". |
+| onAnyKey   | Function     | null    |                                | Callback that is triggered every time a key is pressed.                           |
 
-> If you use `multipleKeys`, all the other props (except `keyEvent`) become redundant.
+## Key Binds
 
-# Events
+| Variable       | Type     | Default | Possible Values                                      | Description                                                                       |
+| -------------- | -------- | ------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
+| keyCode        | Number   | null    | [see here](https://keycode.info/)                    | Key that should trigger the event. If _null_, any key will trigger event.         |
+| modifiers      | Array    | []      | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_'] | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A. |
+| preventDefault | Boolean  | false   | _true_,_false_                                       | Prevent the default action of the event                                           |
+| success        | Function | null    |                                                      | Callback that is triggered when the correct key is pressed.                       |
 
-| Event    | Description                                                          |
-| -------- | -------------------------------------------------------------------- |
-| @success | Get's emitted when the defined key/modifiers were pressed.           |
-| @wrong   | Get's emitted when the wrong key(s) or modifier(s) was/were pressed. |
-| @any     | Get's emitted with any keypress in any case.                         |
-
-All of them return a payload like so:
+The return payload of the callbacks is like so:
 
 ```js
 {
@@ -92,122 +139,4 @@ All of them return a payload like so:
   expectedEvent: Object, // your defined props.
   message: String // A declarative message on error/success.
 }
-```
-
-# Multiple Keys
-
-The `multiple-keys` prop allows for defining multiple keys (or key-modifier combinations) per key-event that can be pressed for success.
-
-All the other props except key-event become redundant.
-
-```vue
-<template>
-  <Keypress key-event="keyup" :multiple-keys="multiple" @success="someMethod" />
-</template>
-
-<script>
-import { defineAsyncComponent } from 'vue'
-
-export default {
-  components: {
-    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
-  },
-  data: () => ({
-    multiple: [
-      {
-        keyCode: 65, // A
-        modifiers: ['shiftKey'],
-        preventDefault: true,
-      },
-      {
-        keyCode: 83, // S
-        modifiers: ['shiftKey'],
-        preventDefault: false,
-      },
-    ],
-  }),
-  methods: {
-    someMethod(response) {
-      // Do something
-    },
-  },
-}
-</script>
-```
-
-# Multiple Key Events
-
-Multiple key events means that multiple event handlers for each evennt need to be registered. To do this, simply put your props in an array and register the component multiple times, like so:
-
-```vue
-<template>
-  <Keypress
-    v-for="keypressEvent in keypressEvents"
-    :key="keypressEvent.id"
-    :key-event="keypressEvent.keyEvent"
-    :multiple-keys="keypressEvent.multipleKeys"
-    @success="someMethod"
-  />
-</template>
-
-<script>
-import { defineAsyncComponent } from 'vue'
-
-export default {
-  components: {
-    Keypress: defineAsyncComponent(() => import('vue3-keypress')),
-  },
-  data() {
-    return {
-      keypressEvents: [
-        {
-          keyEvent: 'keydown',
-          multipleKeys: [
-            {
-              keyCode: 65, // A
-              modifiers: ['shiftKey'],
-              preventDefault: true,
-            },
-            {
-              keyCode: 83, // S
-              modifiers: ['shiftKey'],
-              preventDefault: false,
-            },
-          ],
-        },
-        {
-          keyEvent: 'keyup',
-          multipleKeys: [
-            {
-              keyCode: 65, // A
-              modifiers: ['shiftKey'],
-              preventDefault: true,
-            },
-            {
-              keyCode: 83, // S
-              modifiers: ['shiftKey'],
-              preventDefault: false,
-            },
-          ],
-        },
-      ],
-    }
-  },
-  methods: {
-    someMethod(response) {
-      // Do something
-    },
-  },
-}
-</script>
-```
-
-# Typescript Support
-
-Add the following to your `tsconfig.json`:
-
-```json
-"types": [
-  "vue3-keypress"
-]
 ```
