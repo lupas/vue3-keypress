@@ -24,7 +24,7 @@ const useKeypress = ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isLis
             const callbackData = (eventData = {}) => (Object.assign({ event,
                 keyEvent }, eventData));
             if (typeof onAnyKey == 'function')
-                onAnyKey(callbackData({ any: true }));
+                onAnyKey(callbackData(event));
             for (const { keyCode, modifiers, success, preventDefault = true, } of keyBinds) {
                 // Check if the correct keys have been clicked:
                 if (keyCode !== event.keyCode)
@@ -40,11 +40,16 @@ const useKeypress = ({ keyEvent, keyBinds, onAnyKey, onWrongKey, isActive: isLis
                 if (preventDefault)
                     event.preventDefault();
                 // SUCCESS -> the correct key was pressed if we got to this point
-                success(callbackData({ keyCode, modifiers, preventDefault }));
+                success(callbackData({
+                    keyCode,
+                    modifiers,
+                    preventDefault,
+                    event,
+                }));
                 return !preventDefault;
             }
             if (typeof onWrongKey == 'function')
-                onWrongKey(callbackData({ wrong: true }));
+                onWrongKey(callbackData(event));
             return null;
         };
     };

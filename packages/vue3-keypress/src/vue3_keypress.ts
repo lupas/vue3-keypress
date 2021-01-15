@@ -7,24 +7,30 @@ interface KeyBind {
   keyCode: string
   modifiers?: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey']
   preventDefault: boolean
-  success: Function
+  success: { (input: any): SuccessResult }
 }
 
 interface KeypressOptions {
   keyEvent: 'keydown' | 'keypress' | 'keyup'
   keyBinds: KeyBind[]
   isActive: any // TODO
-  onAnyKey?: Function
-  onWrongKey?: Function
+  onAnyKey?: { (event: any): KeypressResult }
+  onWrongKey?: { (event: any): KeypressResult }
 }
 
-export interface KeypressResult {
+interface KeypressResult {
+  event: KeypressResult
+  keyEvent: string
+}
+
+interface SuccessResult extends KeypressResult {
   keyCode: string
+  keyEvent: string
   modifiers: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey']
   preventDefault: boolean
 }
 
-const useKeypress = ({
+export const useKeypress = ({
   keyEvent,
   keyBinds,
   onAnyKey,
@@ -55,7 +61,8 @@ const useKeypress = ({
         ...eventData,
       })
 
-      if (typeof onAnyKey == 'function') onAnyKey(callbackData({ any: true }))
+      if (typeof onAnyKey == 'function')
+        onAnyKey(callbackData(event) as KeypressResult)
 
       for (const {
         keyCode,
@@ -76,13 +83,18 @@ const useKeypress = ({
 
         // SUCCESS -> the correct key was pressed if we got to this point
         success(
-          callbackData({ keyCode, modifiers, preventDefault } as KeypressResult)
+          callbackData({
+            keyCode,
+            modifiers,
+            preventDefault,
+            event,
+          } as SuccessResult)
         )
 
         return !preventDefault
       }
       if (typeof onWrongKey == 'function')
-        onWrongKey(callbackData({ wrong: true }))
+        onWrongKey(callbackData(event) as KeypressResult)
       return null
     }
   }
@@ -108,5 +120,3 @@ const useKeypress = ({
 
   onUnmounted(() => removeListener())
 }
-
-export { useKeypress }

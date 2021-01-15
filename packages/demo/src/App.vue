@@ -16,6 +16,19 @@ import KeyBackground from './components/KeyBackground.vue'
 import { useKeypress } from 'vue3-keypress'
 import { defineComponent, ref } from 'vue'
 
+// TODO: Grab directly from module's types
+interface KeypressResult {
+  event: KeypressResult
+  keyEvent: string
+}
+
+interface SuccessResult extends KeypressResult {
+  keyCode: string
+  keyEvent: string
+  modifiers: ['altKey' | 'metaKey' | 'ctrlKey' | 'shiftKey']
+  preventDefault: boolean
+}
+
 export default defineComponent({
   components: {
     KeyBackground
@@ -25,25 +38,26 @@ export default defineComponent({
     const isSuccess = ref(false)
     const isActiveRef = ref(true)
 
-    const someSuccessCallback = ({ keyCode }: any) => {
-      console.log(keyCode)
+    const someSuccessCallback = (result: SuccessResult) => {
+      console.log(result)
       isSuccess.value = true
     }
 
-    const someWrongKeyCallback = ({ event }: any) => {
-      console.log(event)
+    const someWrongKeyCallback = (result: KeypressResult) => {
+      console.log(result)
       isSuccess.value = false
     }
 
-    const someAnyKeyCallback = ({ event }: any) => {
-      pressedKeyCode.value = event.keyCode
+    const someAnyKeyCallback = (result: KeypressResult) => {
+      console.log(result)
+      //pressedKeyCode.value = result.keyCode
     }
 
     useKeypress({
       keyEvent: 'keydown',
       keyBinds: [
         {
-          keyCode: '69',
+          keyCode: 'left',
           modifiers: ['shiftKey'],
           success: someSuccessCallback,
           preventDefault: true // the default is true

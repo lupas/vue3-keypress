@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-unused-vars': 'warn',
-    'object-shorthand': 'warn'
+    'object-shorthand': 'warn',
+    '@typescript-eslint/member-delimiter-style': 'off'
   }
 }
