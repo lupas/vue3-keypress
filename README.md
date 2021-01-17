@@ -47,7 +47,7 @@ setup() {
         keyEvent: "keydown",
         keyBinds: [
           {
-            keyCode: "down",
+            keyCode: "down", // or keyCode as integer, e.g. 40
             success: someSuccessCallback,
           },
         ]
@@ -60,42 +60,42 @@ setup() {
 
 ```vue
 <script>
-import { useKeypress } from 'vue3_keypress'
-import { ref } from 'vue'
+import { useKeypress } from "vue3_keypress";
+import { ref } from "vue";
 
 export default {
   components: {
     KeyBackground,
   },
   setup() {
-    const pressedKeyCode = ref(null)
-    const isSuccess = ref(false)
-    const isActiveRef = ref(true)
+    const pressedKeyCode = ref(null);
+    const isSuccess = ref(false);
+    const isActiveRef = ref(true);
 
     const someSuccessCallback = ({ keyCode }) => {
-      isSuccess.value = true
-    }
+      isSuccess.value = true;
+    };
 
     const someWrongKeyCallback = ({ event }) => {
-      isSuccess.value = false
-    }
+      isSuccess.value = false;
+    };
 
     const someAnyKeyCallback = ({ event }) => {
-      pressedKeyCode.value = event.keyCode
-    }
+      pressedKeyCode.value = event.keyCode;
+    };
 
     useKeypress({
-      keyEvent: 'keydown',
+      keyEvent: "keydown",
       keyBinds: [
         {
-          keyCode: 'left',
-          modifiers: ['shiftKey'],
+          keyCode: "left", // or keyCode as integer, e.g. 37
+          modifiers: ["shiftKey"],
           success: someSuccessCallback,
           preventDefault: true, // the default is true
         },
         {
-          keyCode: 'right',
-          modifiers: ['shiftKey'],
+          keyCode: "right", // or keyCode as integer, e.g. 39
+          modifiers: ["shiftKey"],
           success: someSuccessCallback,
           preventDefault: true, // the default is true
         },
@@ -103,11 +103,11 @@ export default {
       onWrongKey: someWrongKeyCallback,
       onAnyKey: someAnyKeyCallback,
       isActive: isActiveRef,
-    })
+    });
 
-    return {}
+    return {};
   },
-}
+};
 </script>
 ```
 
@@ -123,12 +123,12 @@ export default {
 
 ## Key Binds
 
-| Variable       | Type     | Default | Possible Values                                      | Description                                                                       |
-| -------------- | -------- | ------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
-| keyCode        | Number   | null    | [see here](https://keycode.info/)                    | Key that should trigger the event. If _null_, any key will trigger event.         |
-| modifiers      | Array    | []      | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_'] | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A. |
-| preventDefault | Boolean  | false   | _true_,_false_                                       | Prevent the default action of the event                                           |
-| success        | Function | null    |                                                      | Callback that is triggered when the correct key is pressed.                       |
+| Variable       | Type            | Default | Possible Values                                                    | Description                                                                       |
+| -------------- | --------------- | ------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| keyCode        | Number / String | null    | [KeyCode as integer](https://keycode.info/) or a [mapped string]() | Key that should trigger the event. If _null_, any key will trigger event.         |
+| modifiers      | Array           | []      | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_']               | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A. |
+| preventDefault | Boolean         | false   | _true_,_false_                                                     | Prevent the default action of the event                                           |
+| success        | Function        | null    |                                                                    | Callback that is triggered when the correct key is pressed.                       |
 
 The return payload of the callbacks is like so:
 
