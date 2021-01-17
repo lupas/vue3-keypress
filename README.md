@@ -39,7 +39,6 @@ import { useKeypress } from 'vue3_keypress'
 import { ref } from 'vue'
 
 setup() {
-    const keypressListenerActive = ref(true)
     const someSuccessCallback = ({ keyCode }) => {
         // doSomething
     }
@@ -49,12 +48,9 @@ setup() {
         keyBinds: [
           {
             keyCode: "down",
-            modifiers: ['shiftKey'], // Optional
-            preventDefault: false // Optional: default is "true"
             success: someSuccessCallback,
           },
-        ],
-        isActive: keypressListenerActive,
+        ]
     })
 }
 </script>
@@ -64,6 +60,9 @@ setup() {
 
 ```vue
 <script>
+import { useKeypress } from 'vue3_keypress'
+import { ref } from 'vue'
+
 export default {
   components: {
     KeyBackground,

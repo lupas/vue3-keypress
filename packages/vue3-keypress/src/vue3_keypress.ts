@@ -12,18 +12,18 @@ export const useKeypress = ({
 }: KeypressOptions) => {
   let eventListener = null
 
-  for (let keyBind of keyBinds) {
+  for (const keyBind of keyBinds) {
     keyBind.keyCode = keyCodes[keyBind.keyCode] || keyBind.keyCode
   }
 
-  const addListener = () => {
-    if (!eventListener) eventListener = eventHandler()
-    window.addEventListener(keyEvent, eventListener)
+  const requiredModifiersPressed = (event, modifiers) => {
+    return supportedModifiers.every(
+      (modifier) => event[modifier] == (modifiers.indexOf(modifier) !== -1)
+    )
   }
 
-  const removeListener = () => {
-    if (!eventListener) return
-    window.removeEventListener(keyEvent, eventListener)
+  const anyModifiersPress = (event, modifiers) => {
+    return supportedModifiers.some((modifier) => !!event[modifier])
   }
 
   const eventHandler = () => {
@@ -72,19 +72,19 @@ export const useKeypress = ({
     }
   }
 
-  const requiredModifiersPressed = (event, modifiers) => {
-    return supportedModifiers.every(
-      (modifier) => event[modifier] == (modifiers.indexOf(modifier) !== -1)
-    )
+  const addListener = () => {
+    if (!eventListener) eventListener = eventHandler()
+    window.addEventListener(keyEvent, eventListener)
   }
 
-  const anyModifiersPress = (event, modifiers) => {
-    return supportedModifiers.some((modifier) => !!event[modifier])
+  const removeListener = () => {
+    if (!eventListener) return
+    window.removeEventListener(keyEvent, eventListener)
   }
 
   if (isListenerActiveRef) {
     if (isListenerActiveRef.value) addListener()
-    watch(isListenerActiveRef.value, (active) => {
+    watch(isListenerActiveRef, (active) => {
       active ? addListener() : removeListener()
     })
   } else {

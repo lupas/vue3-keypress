@@ -7478,10 +7478,10 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue3-keypress@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-3.0.2.tgz#7a2e0f5d27b559a03dde52dfd115cdc7004d3606"
-  integrity sha512-6RDHJPfnMVA6UCtIkvG/9ZxRETyS9HsG3qNHP3T1dDxDzPC+pRn5oJ6pCULgPdnufa0TfA70Hr5z2F7cHDv68A==
+vue3-keypress@^4.0.0-beta2:
+  version "4.0.0-beta2"
+  resolved "https://registry.yarnpkg.com/vue3-keypress/-/vue3-keypress-4.0.0-beta2.tgz#612cd7057c95471ad0aabf99f4502b23052e52a1"
+  integrity sha512-UCp1lCjEQvb4xIl8KOyNFbDYmAvWBiGelGiZelv7692qpxV57SUzjDlFafOv7H4RTP2LlVY4orh0V+0h9oXwGA==
 
 vue@^3.0.0:
   version "3.0.5"
