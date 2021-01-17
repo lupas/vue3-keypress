@@ -7,6 +7,11 @@
  </p>
 </p>
 
+# ⚠️ Breaking Changes with V4 ⚠️
+
+Version 4 introduced breaking changes by making use of the Vue 3 composition API and dropping the component-based approach.
+Follow the guide below to setup the module following the new approach.
+
 # Vue Keypress
 
 Want to capture _keydown_, _keypress_ and _keyup_ and events globally in Vue? Nothing easier than that.
