@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "vue": "^3.0.0",
-    "vue3-keypress": "^4.0.0-beta2"
+    "vue3-keypress": "^4.0.0-beta3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
