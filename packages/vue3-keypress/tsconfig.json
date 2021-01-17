@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "moduleResolution": "node",
+    "target": "esnext",
+    "module": "esnext",
+    "noImplicitReturns": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "declaration": true
+  },
+  "compileOnSave": false,
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "@types/*.ts",
+    "@types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "lib"]
+}

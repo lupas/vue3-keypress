@@ -11,8 +11,8 @@ export default {
   props: {
     pressedKeyCode: {
       type: Number,
-      default: null,
-    },
+      default: null
+    }
   },
   computed: {
     dynamicBackgroundStyle() {
@@ -21,8 +21,8 @@ export default {
       } else {
         return { backgroundImage: "url('/emptyKey.png')" }
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
