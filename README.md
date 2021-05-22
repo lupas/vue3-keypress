@@ -40,7 +40,7 @@ npm i vue3-keypress
 
 ```vue
 <script>
-import { useKeypress } from 'vue3_keypress'
+import { useKeypress } from 'vue3-keypress'
 import { ref } from 'vue'
 
 setup() {
@@ -65,7 +65,7 @@ setup() {
 
 ```vue
 <script>
-import { useKeypress } from "vue3_keypress";
+import { useKeypress } from "vue3-keypress";
 import { ref } from "vue";
 
 export default {
