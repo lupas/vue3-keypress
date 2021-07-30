@@ -130,7 +130,7 @@ export default {
 
 | Variable       | Type            | Default | Possible Values                                                    | Description                                                                       |
 | -------------- | --------------- | ------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| keyCode        | Number / String | null    | [KeyCode as integer](https://keycode.info/) or a [mapped string]() | Key that should trigger the event. If _null_, any key will trigger event.         |
+| keyCode        | Number / String | null    | [KeyCode as integer](https://keycode.info/) or a [mapped string](https://github.com/lupas/vue3-keypress/blob/master/packages/vue3-keypress/src/key_codes.ts) | Key that should trigger the event. If _null_, any key will trigger event.         |
 | modifiers      | Array           | []      | ['_ctrlKey_', '_shiftKey_', '_altKey_', '_metaKey_']               | Keys that needs to be pressed down before the actual key (key Code), e.g. Ctrl+A. |
 | preventDefault | Boolean         | false   | _true_,_false_                                                     | Prevent the default action of the event                                           |
 | success        | Function        | null    |                                                                    | Callback that is triggered when the correct key is pressed.                       |
